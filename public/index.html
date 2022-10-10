@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat app</title>
+</head>
+<body>
+    
+    <div id="mensagens"></div>
+    <form action="" id="messageGrupo">
+        <h1>Mensagem em grupo</h1>
+        <label for="nome">Nome: </label>
+        <input type="text" id="nome">
+        <label for="mensagem">Mensagem: </label>
+        <input type="text" id="mensagem">
+        <button type="submit" id="submit">Enviar mensagem</button>
+    </form>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        socket.on("MensagensNoDb", (data)=>{
+            JSON.parse(data).map(({nome, mensagem}) => {
+                // document.getElementById("mensagens").innerHTML = `<span>${nome}: ${mensagem} </span>`
+            })
+        });
+        function pegarMesangemEmGrupoForm(idInputNome, idInputMsg){
+            document.getElementById("messageGrupo").addEventListener('submit', (event)=>{
+                event.preventDefault();
+            })
+            return {
+                nome: document.getElementById(idInputNome)?.value,
+                mensagem: document.getElementById(idInputMsg)?.value
+            };
+        }
+        document.getElementById("submit").addEventListener("click", ()=>{
+            socket.emit("mensagemGrupo", pegarMesangemEmGrupoForm("nome", "mensagem"));
+        })
+    </script>
+</body>
+</html>

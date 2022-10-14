@@ -31,6 +31,7 @@ io.on('connection', async(socket)=>{
             nome: nome,
             mensagem: mensagem
         }).save();
+        socket.emit("MensagensNoDb", JSON.stringify(await Message.find({})))
+
     })
-    socket.emit("MensagensNoDb", JSON.stringify(await Message.find({})))
 });

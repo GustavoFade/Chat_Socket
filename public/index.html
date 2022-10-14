@@ -8,7 +8,7 @@
 </head>
 <body>
     
-    <div id="mensagens"></div>
+    <ul id="mensagens"></ul>
     <form action="" id="messageGrupo">
         <h1>Mensagem em grupo</h1>
         <label for="nome">Nome: </label>
@@ -23,7 +23,8 @@
         const socket = io();
         socket.on("MensagensNoDb", (data)=>{
             JSON.parse(data).map(({nome, mensagem}) => {
-                // document.getElementById("mensagens").innerHTML = `<span>${nome}: ${mensagem} </span>`
+                let text = `<li>${nome}: ${mensagem}</li>`
+                document.getElementById("mensagens").innerHTML = document.getElementById("mensagens").innerHTML + text
             })
         });
         function pegarMesangemEmGrupoForm(idInputNome, idInputMsg){

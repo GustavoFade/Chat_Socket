@@ -65,6 +65,6 @@ io.on('connection', (socket) => __awaiter(void 0, void 0, void 0, function* () {
             nome: nome,
             mensagem: mensagem
         }).save();
-        socket.emit("MensagensNoDb", JSON.stringify(yield Message_1.default.find({})));
     }));
+    socket.emit("MensagensNoDb", JSON.stringify(yield Message_1.default.find({})));
 }));
